@@ -1,0 +1,7 @@
+{
+  "name": "tiny-survey",
+  "scripts": {
+    "deploy": "firebase deploy"
+  },
+  "private": true
+}

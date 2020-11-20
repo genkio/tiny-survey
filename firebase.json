@@ -3,6 +3,24 @@
     "predeploy": [
       "npm --prefix \"$RESOURCE_DIR\" run lint",
       "npm --prefix \"$RESOURCE_DIR\" run build"
+    ],
+    "source": "functions"
+  },
+  "hosting": {
+    "predeploy": [
+      "cd web && npm run lint && npm run build"
+    ],
+    "public": "web/dist",
+    "ignore": [
+      "web/firebase.json",
+      "web/**/.*",
+      "web/**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
     ]
   }
 }

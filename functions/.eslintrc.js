@@ -1,3 +1,7 @@
+/**
+ * @type {import("eslint").Linter.Config}
+ */
+
 module.exports = {
   env: {
     browser: true,
@@ -5,6 +9,9 @@ module.exports = {
     node: true,
   },
   extends: [
+    "prettier/@typescript-eslint",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
     "plugin:import/errors",
     "plugin:import/warnings",
     "plugin:import/typescript",
@@ -14,10 +21,7 @@ module.exports = {
     project: "tsconfig.json",
     sourceType: "module",
   },
-  plugins: [
-    "@typescript-eslint",
-    "import",
-  ],
+  plugins: ["@typescript-eslint", "import"],
   rules: {
     "@typescript-eslint/adjacent-overload-signatures": "error",
     "@typescript-eslint/no-empty-function": "error",
@@ -60,6 +64,16 @@ module.exports = {
     "no-var": "warn",
     "no-void": "error",
     "prefer-const": "warn",
+    "sort-imports": [
+      "error",
+      {
+        ignoreCase: false,
+        ignoreDeclarationSort: false,
+        ignoreMemberSort: false,
+        memberSyntaxSortOrder: ["none", "all", "multiple", "single"],
+        allowSeparatedGroups: false,
+      },
+    ],
   },
   settings: {
     jsdoc: {

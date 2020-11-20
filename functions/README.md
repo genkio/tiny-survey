@@ -12,3 +12,7 @@
 ## Launch
 
 `npm run serve`
+
+## Deploy
+
+`npm run deploy`
