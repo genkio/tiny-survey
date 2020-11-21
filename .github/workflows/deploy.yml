@@ -1,0 +1,31 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@main
+      - uses: actions/setup-node@main
+        with:
+          version: 12
+      - name: Install Server Dependencies & Build
+        working-directory: ./functions
+        run: |
+          npm install
+          npm run build
+      - name: Install Web Client Dependencies & Build
+        working-directory: ./web
+        run: |
+          npm install
+          npm run build
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}

@@ -7,5 +7,5 @@ export default function Health() {
   if (status === "loading") return <p>Loading...</p>;
   if (error) return <p>Oops</p>;
 
-  return <p>{data?.now}</p>;
+  return <p>Everything is fine! {data?.now}</p>;
 }

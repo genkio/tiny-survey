@@ -1,12 +1,12 @@
 import axios from "axios";
-import { HealthStatusReceive } from "common/types";
-import { HealthStatusRequestKey, useFetch } from "./use-fetch";
+import { IHealthStatusReceive } from "common/types";
+import { useFetch } from "./use-fetch";
 
 const getHealthStatus = async () => {
-  const { data } = await axios.get<HealthStatusReceive>(`${process.env.API}/health/now`);
+  const { data } = await axios.get<IHealthStatusReceive>(`${process.env.API}/health/now`);
   return data;
 };
 
 export function useHealth() {
-  return useFetch<HealthStatusRequestKey, HealthStatusReceive>("health", getHealthStatus);
+  return useFetch<IHealthStatusReceive>("health", getHealthStatus);
 }

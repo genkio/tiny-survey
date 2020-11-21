@@ -38,6 +38,12 @@ module.exports = {
     "import/no-deprecated": "warn",
     "import/no-extraneous-dependencies": "error",
     "import/no-unassigned-import": "warn",
+    "import/no-unresolved": [
+      2,
+      {
+        ignore: ["common"],
+      },
+    ],
     "no-cond-assign": "error",
     "no-duplicate-case": "error",
     "no-duplicate-imports": "error",
@@ -64,16 +70,6 @@ module.exports = {
     "no-var": "warn",
     "no-void": "error",
     "prefer-const": "warn",
-    "sort-imports": [
-      "error",
-      {
-        ignoreCase: false,
-        ignoreDeclarationSort: false,
-        ignoreMemberSort: false,
-        memberSyntaxSortOrder: ["none", "all", "multiple", "single"],
-        allowSeparatedGroups: false,
-      },
-    ],
   },
   settings: {
     jsdoc: {

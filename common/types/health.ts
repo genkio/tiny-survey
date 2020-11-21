@@ -1,1 +1,3 @@
-export type HealthStatusReceive = { now: Date };
+export interface IHealthStatusReceive {
+  now: Date;
+}

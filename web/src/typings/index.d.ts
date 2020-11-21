@@ -1,7 +1,7 @@
-interface IConfig {
+interface IProcess {
   env: {
     API: string;
   };
 }
 
-declare const process: IConfig;
+declare const process: IProcess;

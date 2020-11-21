@@ -1,5 +1,5 @@
+import { IHealthStatusReceive, IResponse } from "common/types";
 import { Request, Response, Router } from "express";
-import { HealthStatusReceive, IResponse } from "common/types";
 
 export default function HealthRouter(): Router {
   const router = Router();
@@ -10,7 +10,7 @@ export default function HealthRouter(): Router {
 
   router.get("/now", (_req: Request, res: Response) => {
     return res.json(
-      new IResponse<HealthStatusReceive>({ now: new Date() }),
+      new IResponse<IHealthStatusReceive>({ now: new Date() })
     );
   });
 

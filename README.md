@@ -15,8 +15,14 @@
 
 ### [Setup and launch web client](./web/README.md)
 
-## Deploy
+## Deployment
+
+### Continuous deployment
+
+Any push or pull request merge into the `main` branch will trigger deployment via Github actions
+
+### Manual deployment
 
 `npm run deploy`
 
-> This command deploys both web client and server. They can also be deployed separately by run the same command in their own folder
+This command deploys both web client and server. They can also be deployed separately by run the same command in their own folder

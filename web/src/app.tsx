@@ -1,6 +1,6 @@
+import React from "react";
 import { QueryCache, ReactQueryCacheProvider } from "react-query";
 import Health from "./components/health";
-import React from "react";
 
 const queryCache = new QueryCache();
 
