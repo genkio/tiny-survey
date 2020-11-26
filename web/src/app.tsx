@@ -1,13 +1,13 @@
 import React from "react";
 import { QueryCache, ReactQueryCacheProvider } from "react-query";
-import Health from "./components/health";
+import Routes from "./routes";
 
 const queryCache = new QueryCache();
 
 export default function App() {
   return (
     <ReactQueryCacheProvider queryCache={queryCache}>
-      <Health />
+      <Routes />
     </ReactQueryCacheProvider>
   );
 }

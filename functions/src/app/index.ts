@@ -4,17 +4,40 @@ import * as cors from "cors";
 import * as express from "express";
 import * as helmet from "helmet";
 import * as morgan from "morgan";
-import Routers from "./routers";
+import { errorHandler } from "./middleware";
 
-const app = express();
+interface IController {
+  router: express.Router;
+  intializeRoutes: () => void;
+}
 
-app.use(helmet());
-app.use(morgan("dev"));
-app.use(cors());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(compression());
+export default class App {
+  public app: express.Application;
 
-app.use("/health", Routers.HealthRouter());
+  constructor(controllers: IController[]) {
+    this.app = express();
 
-export default app;
+    this.initializeMiddlewares();
+    this.initializeControllers(controllers);
+    this.initializeErrorHandler();
+  }
+
+  private initializeMiddlewares() {
+    this.app.use(helmet());
+    this.app.use(morgan("dev"));
+    this.app.use(cors());
+    this.app.use(bodyParser.json());
+    this.app.use(bodyParser.urlencoded({ extended: false }));
+    this.app.use(compression());
+  }
+
+  private initializeControllers(controllers: IController[]) {
+    controllers.forEach((controller) => {
+      this.app.use("/", controller.router);
+    });
+  }
+
+  private initializeErrorHandler() {
+    this.app.use(errorHandler);
+  }
+}

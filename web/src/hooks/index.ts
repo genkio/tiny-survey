@@ -1,1 +1,1 @@
-export * from "./use-health";
+export * from "./use-factory";
