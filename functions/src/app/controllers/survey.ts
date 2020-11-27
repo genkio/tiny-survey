@@ -20,9 +20,41 @@ export default class SurveyController {
   }
 
   intializeRoutes() {
+    /**
+     * @swagger
+     * /survey/{id}:
+     *    delete:
+     *      summary: Delete a survey
+     *      description: Allow author to delete a survey
+     *      tags: [ Survey ]
+     */
     this.router.delete(`${this.path}/:id`, wrapAsync(this.delete.bind(this)));
+    /**
+     * @swagger
+     * /survey/{id}:
+     *    get:
+     *      summary: Get a survey
+     *      description: Allow any user to get a survey
+     *      tags: [ Survey ]
+     */
     this.router.get(`${this.path}/:id`, wrapAsync(this.get.bind(this)));
+    /**
+     * @swagger
+     * /survey:
+     *    post:
+     *      summary: Create a survey
+     *      description: Allow authenticated user to create a survey
+     *      tags: [ Survey ]
+     */
     this.router.post(this.path, wrapAsync(this.create.bind(this)));
+    /**
+     * @swagger
+     * /survey/{id}:
+     *    put:
+     *      summary: Update a survey
+     *      description: Allow author to update a survey
+     *      tags: [ Survey ]
+     */
     this.router.put(`${this.path}/:id`, wrapAsync(this.update.bind(this)));
   }
 
@@ -41,18 +73,11 @@ export default class SurveyController {
   }
 
   async get(req: Request, res: Response) {
-    const survey = await this.database.read<ISurvey | undefined>(
-      "survey",
-      req.params.id
-    );
+    const survey = await this.database.read<ISurvey>("survey", req.params.id);
 
-    if (!survey) {
-      res.end(404);
-    } else {
-      res.json(
-        new IHttpResponse<ISurveyDetailReceive>({ survey })
-      );
-    }
+    res.json(
+      new IHttpResponse<ISurveyDetailReceive>({ survey })
+    );
   }
 
   async update(req: Request, res: Response) {

@@ -18,7 +18,23 @@ export default class ResponseController {
   }
 
   intializeRoutes() {
+    /**
+     * @swagger
+     * /response:
+     *    post:
+     *      summary: Create a response
+     *      description: Allow any user to create a response
+     *      tags: [ Response ]
+     */
     this.router.post(this.path, wrapAsync(this.create.bind(this)));
+    /**
+     * @swagger
+     * /response/{id}:
+     *    get:
+     *      summary: Get a response
+     *      description: Allow author to get a response
+     *      tags: [ Response ]
+     */
     this.router.get(`${this.path}/:id`, wrapAsync(this.get.bind(this)));
   }
 
