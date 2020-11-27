@@ -1,3 +1,5 @@
+import { faHeading } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   IRadioButtonSchema,
   ISurvey,
@@ -36,22 +38,55 @@ export default function SurveyCreate() {
     mutate({ schema: Object.values(schemaMap), title });
   };
 
-  return (
-    <form onSubmit={submit}>
-      <label>Survey Title</label>
-      <input type="text" onChange={(event) => setTitle(event.target.value)} />
-      {items.map((index) => (
-        <FactoryProvider key={`Factory-${index}`}>
-          <RadioButtonFactory
-            onChange={(updatedSchema) => updateSchema(index, updatedSchema)}
+  const titleInput = (
+    <div className="box">
+      <div className="field">
+        <label className="label">Title</label>
+        <div className="control has-icons-left">
+          <input
+            className="input"
+            type="text"
+            onChange={(event) => setTitle(event.target.value)}
           />
-        </FactoryProvider>
-      ))}
+          <span className="icon is-small is-left">
+            <FontAwesomeIcon icon={faHeading} />
+          </span>
+        </div>
+      </div>
+    </div>
+  );
 
-      <button type="button" onClick={add}>
-        Add more
-      </button>
-      <button type="submit">Create survey</button>
-    </form>
+  return (
+    <div>
+      <h3 className="title has-text-black">Tiny Survey</h3>
+      <p className="subtitle has-text-black">Create your next survey</p>
+
+      <form className="has-text-left" onSubmit={submit}>
+        {titleInput}
+
+        {items.map((index) => (
+          <div className="box" key={`Factory-${index}`}>
+            <FactoryProvider>
+              <RadioButtonFactory
+                onChange={(updatedSchema) => updateSchema(index, updatedSchema)}
+              />
+            </FactoryProvider>
+          </div>
+        ))}
+
+        <div className="buttons is-right">
+          <div className="control">
+            <button className="button is-white" onClick={add} type="button">
+              More questions
+            </button>
+          </div>
+          <div className="control">
+            <button className="button is-link" type="submit">
+              Create
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
   );
 }

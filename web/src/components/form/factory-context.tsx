@@ -19,9 +19,7 @@ export default function FactoryProvider({
   return (
     <FactoryContext.Provider
       value={{
-        add: () => {
-          setItems([...items, items.length + 1]);
-        },
+        add: () => setItems([...items, items.length]),
         initialize: (count: number) => {
           const newItems = Array(count)
             .fill(0)

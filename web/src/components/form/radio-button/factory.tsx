@@ -1,3 +1,10 @@
+import {
+  faLightbulb,
+  faMinus,
+  faPlus,
+  faQuestion,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IRadioButtonSchema } from "common/types";
 import React, { useEffect, useState } from "react";
 import { useFactory } from "../../../hooks";
@@ -12,66 +19,101 @@ function Title({
   value?: string;
 }) {
   return (
-    <div>
-      <label>Title</label>
-      <input
-        name="title"
-        onChange={(event) => onChange(event.target.value)}
-        type="text"
-        value={value}
-      />
+    <div className="field">
+      <label className="label">Question</label>
+      <div className="control has-icons-left">
+        <input
+          className="input"
+          name="title"
+          onChange={(event) => onChange(event.target.value)}
+          type="text"
+          value={value}
+        />
+        <span className="icon is-small is-left">
+          <FontAwesomeIcon icon={faQuestion} />
+        </span>
+      </div>
     </div>
   );
 }
 
 function Option({
-  labelPrefix,
   index,
   onAdd,
   onChange,
   onRemove,
+  total,
   value,
 }: {
   index: number;
-  labelPrefix: string;
-  onAdd: (index: number) => void;
+  onAdd: () => void;
   onChange: (index: number, value: string) => void;
   onRemove: (index: number) => void;
+  total: number;
   value?: string;
 }) {
-  return (
-    <div>
-      <label>{`${labelPrefix} ${index + 1}`}</label>
+  const input = (
+    <div className="control is-expanded has-icons-left">
       <input
+        className="input"
         name={String(index)}
         type="text"
         onChange={(event) => onChange(index, event.target.value)}
         value={value}
       />
-      <button onClick={() => onAdd(index + 1)} type="button">
-        Add
+      <span className="icon is-small is-left">
+        <FontAwesomeIcon icon={faLightbulb} />
+      </span>
+    </div>
+  );
+
+  const addButton = (
+    <div className="control">
+      <button className="button is-white" onClick={onAdd} type="button">
+        More options
       </button>
-      <button onClick={() => onRemove(index)} type="button">
-        Remove
+    </div>
+  );
+
+  const removeButton = (
+    <div className="control">
+      <button
+        className="button is-white"
+        onClick={() => onRemove(index)}
+        type="button"
+      >
+        <span className="icon has-text-danger is-small">
+          <FontAwesomeIcon icon={faMinus} />
+        </span>
       </button>
+    </div>
+  );
+
+  return (
+    <div className="field has-text-centered">
+      <div className="field is-grouped">
+        {input}
+        {index !== 0 && removeButton}
+      </div>
+      {index + 1 === total && addButton}
     </div>
   );
 }
 
 interface IProps {
-  labelPrefix?: string;
   onChange: (v: IRadioButtonSchema) => void;
   schema?: Pick<IRadioButtonSchema, "options" | "title">;
 }
 
-export default function RadioButtonFactory({
-  labelPrefix = "Option",
-  onChange,
-  schema,
-}: IProps) {
+export default function RadioButtonFactory({ onChange, schema }: IProps) {
   const { add, initialize, items, remove } = useFactory();
   const [optionMap, setOptionMap] = useState<IRadioOptionMap>({});
   const [title, setTitle] = useState<IRadioButtonSchema["title"]>("");
+
+  const initializeOptionMap = (options: IRadioButtonSchema["options"]) =>
+    Array(options.length)
+      .fill(null)
+      .reduce((acc, _, index) => ({ ...acc, [index]: options[index] }), {});
 
   useEffect(() => {
     onChange({
@@ -88,14 +130,7 @@ export default function RadioButtonFactory({
     if (!schema) return;
     setTitle(schema.title);
     initialize(schema.options.length);
-    setOptionMap(
-      Array(schema.options.length)
-        .fill(null)
-        .reduce(
-          (acc, _, index) => ({ ...acc, [index]: schema.options[index] }),
-          {}
-        )
-    );
+    setOptionMap(initializeOptionMap(schema.options));
   }, [schema]);
 
   const updateOption = (index: number, value: string) => {
@@ -114,10 +149,10 @@ export default function RadioButtonFactory({
         <Option
           key={`OptionWrapper-${index}`}
           index={index}
-          labelPrefix={labelPrefix}
           onAdd={add}
           onChange={updateOption}
           onRemove={remove}
+          total={items.length}
           value={optionMap[index] ?? schema?.options[index]}
         />
       ))}

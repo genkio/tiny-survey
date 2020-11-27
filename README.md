@@ -1,5 +1,13 @@
 # tiny-survey
 
+> Like Google Forms but better.
+
+![](./web/public/images/screenshot.png)
+
+## Demo
+
+[tiny-survey.web.app](https://tiny-survey.web.app/)
+
 ## Requirements
 
 - `node v12`
