@@ -1,6 +1,9 @@
+import { faHeading } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   IRadioButtonSchema,
   ISurvey,
+  ISurveySchema,
   ISurveyUpdateRequest,
 } from "common/types";
 import React, { FormEvent, useEffect, useState } from "react";
@@ -25,18 +28,16 @@ export default function SurveyEdit({ id }: IProps) {
 
   const { data, error, status } = useQuery(["survey-detail", id], getSurvey);
 
+  const initializeSchemaMap = (schema: ISurveySchema) =>
+    Array(schema.length)
+      .fill(null)
+      .reduce((acc, _, index) => ({ ...acc, [index]: schema[index] }), {});
+
   useEffect(() => {
     if (!data) return;
     initialize(data.survey.schema.length);
     setTitle(data.survey.title);
-    setSchemaMap(
-      Array(data.survey.schema.length)
-        .fill(null)
-        .reduce(
-          (acc, _, index) => ({ ...acc, [index]: data.survey.schema[index] }),
-          {}
-        )
-    );
+    setSchemaMap(initializeSchemaMap(data.survey.schema));
   }, [data]);
 
   const [update] = useMutation(
@@ -65,29 +66,63 @@ export default function SurveyEdit({ id }: IProps) {
   };
 
   return (
-    <form onSubmit={submit}>
-      <label>Survey Title</label>
-      <input
-        type="text"
-        onChange={(event) => setTitle(event.target.value)}
-        value={title}
-      />
-      {items.map((index) => (
-        <FactoryProvider key={`Factory-${index}`}>
-          <RadioButtonFactory
-            onChange={(updatedSchema) => updateSchema(index, updatedSchema)}
-            schema={data.survey.schema[index]}
-          />
-        </FactoryProvider>
-      ))}
+    <div>
+      <h3 className="title has-text-black">Tiny Survey</h3>
+      <p className="subtitle has-text-black">Edit your survey</p>
 
-      <button type="button" onClick={add}>
-        Add more
-      </button>
-      <button type="submit">Update survey</button>
-      <button type="button" onClick={() => remove(id)}>
-        Delete survey
-      </button>
-    </form>
+      <form className="has-text-left" onSubmit={submit}>
+        <div className="box">
+          <div className="field">
+            <label className="label">Title</label>
+            <div className="control has-icons-left">
+              <input
+                className="input"
+                type="text"
+                onChange={(event) => setTitle(event.target.value)}
+                value={title}
+              />
+              <span className="icon is-small is-left">
+                <FontAwesomeIcon icon={faHeading} />
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {items.map((index) => (
+          <div className="box" key={`Factory-${index}`}>
+            <FactoryProvider>
+              <RadioButtonFactory
+                onChange={(updatedSchema) => updateSchema(index, updatedSchema)}
+                schema={data.survey.schema[index]}
+              />
+            </FactoryProvider>
+          </div>
+        ))}
+
+        <div className="buttons is-right">
+          <div className="control">
+            <button className="button is-white" type="button" onClick={add}>
+              More questions
+            </button>
+          </div>
+
+          <div className="control">
+            <button className="button is-link" type="submit">
+              Update
+            </button>
+          </div>
+
+          <div className="control">
+            <button
+              className="button is-danger"
+              type="button"
+              onClick={() => remove(id)}
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
   );
 }

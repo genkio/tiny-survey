@@ -41,20 +41,38 @@ export default function SurveyDetail({ id }: IProps) {
   };
 
   return (
-    <form onSubmit={submit}>
-      <p>{title}</p>
-      {schema.map((data, index) => (
-        <RadioButtonRenderer
-          key={`RadioButton-${index}`}
-          schema={data}
-          onChange={(selected) => changeSelect(index, selected)}
-        />
-      ))}
+    <div>
+      <h3 className="title has-text-black">{title}</h3>
+      <p className="subtitle has-text-weak">Powered by Tiny Survey</p>
 
-      <button type="button" onClick={() => history.push(`/survey/${id}/edit`)}>
-        Edit
-      </button>
-      <button type="submit">Submit</button>
-    </form>
+      <form className="has-text-left" onSubmit={submit}>
+        <div className="box">
+          {schema.map((data, index) => (
+            <RadioButtonRenderer
+              key={`RadioButton-${index}`}
+              schema={data}
+              onChange={(selected) => changeSelect(index, selected)}
+            />
+          ))}
+        </div>
+
+        <div className="buttons is-right">
+          <div className="control">
+            <button
+              className="button is-white"
+              type="button"
+              onClick={() => history.push(`/survey/${id}/edit`)}
+            >
+              Edit
+            </button>
+          </div>
+          <div className="control">
+            <button className="button is-link" type="submit">
+              Submit
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
   );
 }

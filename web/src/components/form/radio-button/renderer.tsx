@@ -20,16 +20,18 @@ function Option({
   option: string;
 }) {
   return (
-    <div>
-      <input
-        checked={checked === option}
-        disabled={disabled}
-        id={createElementId(option)}
-        onChange={(event) => onChange(event.target.value)}
-        type="radio"
-        value={option}
-      />
-      <label htmlFor={createElementId(option)}>{option}</label>
+    <div className="control">
+      <label className="radio">
+        <input
+          checked={checked === option}
+          disabled={disabled}
+          id={createElementId(option)}
+          name={createElementId(option)}
+          onChange={(event) => onChange(event.target.value)}
+          type="radio"
+          value={option}
+        />
+      </label>
     </div>
   );
 }
