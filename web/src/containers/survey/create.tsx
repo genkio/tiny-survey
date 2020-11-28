@@ -45,8 +45,9 @@ export default function SurveyCreate() {
         <div className="control has-icons-left">
           <input
             className="input"
-            type="text"
             onChange={(event) => setTitle(event.target.value)}
+            placeholder="Give you tiny survey a name"
+            type="text"
           />
           <span className="icon is-small is-left">
             <FontAwesomeIcon icon={faHeading} />
@@ -59,7 +60,7 @@ export default function SurveyCreate() {
   return (
     <div>
       <h3 className="title has-text-black">Tiny Survey</h3>
-      <p className="subtitle has-text-black">Create your next survey</p>
+      <p className="subtitle has-text-grey-light">Create your next survey</p>
 
       <form className="has-text-left" onSubmit={submit}>
         {titleInput}

@@ -5,8 +5,11 @@
   --textLight: hsla(0, 0%, 0%, 0.33);
 }
 
-body {
+html {
   background: var(--background);
+}
+
+body {
   height: 100vh;
   color: var(--textDark);
 }

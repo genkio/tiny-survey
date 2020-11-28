@@ -68,7 +68,7 @@ export default function SurveyEdit({ id }: IProps) {
   return (
     <div>
       <h3 className="title has-text-black">Tiny Survey</h3>
-      <p className="subtitle has-text-black">Edit your survey</p>
+      <p className="subtitle has-text-grey-light">Edit your survey</p>
 
       <form className="has-text-left" onSubmit={submit}>
         <div className="box">
@@ -114,7 +114,7 @@ export default function SurveyEdit({ id }: IProps) {
 
           <div className="control">
             <button
-              className="button is-danger"
+              className="button is-danger is-outlined"
               type="button"
               onClick={() => remove(id)}
             >

@@ -1,7 +1,6 @@
 import {
-  faLightbulb,
+  faDotCircle,
   faMinus,
-  faPlus,
   faQuestion,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -26,12 +25,32 @@ function Title({
           className="input"
           name="title"
           onChange={(event) => onChange(event.target.value)}
+          placeholder="Any question in mind?"
           type="text"
           value={value}
         />
         <span className="icon is-small is-left">
           <FontAwesomeIcon icon={faQuestion} />
         </span>
+      </div>
+    </div>
+  );
+}
+
+function QuestionTypeSelect() {
+  const id = Math.random();
+
+  return (
+    <div className="field">
+      <div className="control">
+        <label className="radio">
+          <input checked type="radio" name={`single-choice-${id}`} />{" "}
+          Single-choice
+        </label>
+        <label className="radio" disabled>
+          <input type="radio" name="multi-choice" disabled /> Multi-choice
+          (coming soon)
+        </label>
       </div>
     </div>
   );
@@ -57,19 +76,20 @@ function Option({
       <input
         className="input"
         name={String(index)}
-        type="text"
         onChange={(event) => onChange(index, event.target.value)}
+        placeholder="Available option"
+        type="text"
         value={value}
       />
       <span className="icon is-small is-left">
-        <FontAwesomeIcon icon={faLightbulb} />
+        <FontAwesomeIcon icon={faDotCircle} />
       </span>
     </div>
   );
 
   const addButton = (
     <div className="control">
-      <button className="button is-white" onClick={onAdd} type="button">
+      <button className="button is-light" onClick={onAdd} type="button">
         More options
       </button>
     </div>
@@ -93,7 +113,7 @@ function Option({
     <div className="field has-text-centered">
       <div className="field is-grouped">
         {input}
-        {index !== 0 && removeButton}
+        {index > 1 && removeButton}
       </div>
       {index + 1 === total && addButton}
     </div>
@@ -133,6 +153,11 @@ export default function RadioButtonFactory({ onChange, schema }: IProps) {
     setOptionMap(initializeOptionMap(schema.options));
   }, [schema]);
 
+  // Create two options by default
+  useEffect(() => {
+    initialize(2);
+  }, []);
+
   const updateOption = (index: number, value: string) => {
     setOptionMap({ ...optionMap, [index]: value });
   };
@@ -144,7 +169,7 @@ export default function RadioButtonFactory({ onChange, schema }: IProps) {
   return (
     <div>
       <Title onChange={updateTitle} value={title ?? schema?.title} />
-
+      <QuestionTypeSelect />
       {items.map((index) => (
         <Option
           key={`OptionWrapper-${index}`}

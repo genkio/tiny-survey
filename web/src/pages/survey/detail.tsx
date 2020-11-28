@@ -9,7 +9,7 @@ export default function SurveyDetailPage() {
 
   return (
     <PageWrapper>
-      <SurveyDetail id={id} />;
+      <SurveyDetail id={id} />
     </PageWrapper>
   );
 }

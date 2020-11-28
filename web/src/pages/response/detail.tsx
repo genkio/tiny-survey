@@ -9,7 +9,7 @@ export default function ResponseDetailPage() {
 
   return (
     <PageWrapper>
-      <ResponseDetail id={id} />;
+      <ResponseDetail id={id} />
     </PageWrapper>
   );
 }

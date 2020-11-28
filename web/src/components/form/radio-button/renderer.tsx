@@ -30,7 +30,8 @@ function Option({
           onChange={(event) => onChange(event.target.value)}
           type="radio"
           value={option}
-        />
+        />{" "}
+        {option}
       </label>
     </div>
   );
@@ -49,17 +50,20 @@ export default function RadioButtonRenderer({
   };
 
   return (
-    <div>
-      <p>{title}</p>
+    <>
+      <div className="field">
+        <label className="label">{title}</label>
+      </div>
       {options.map((option, index) => (
-        <Option
-          checked={result ?? checked}
-          disabled={result !== undefined}
-          key={`RadioButton-${index}`}
-          onChange={change}
-          option={option}
-        />
+        <div className="field" key={`RadioButton-${index}`}>
+          <Option
+            checked={result ?? checked}
+            disabled={result !== undefined}
+            onChange={change}
+            option={option}
+          />
+        </div>
       ))}
-    </div>
+    </>
   );
 }

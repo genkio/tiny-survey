@@ -24,7 +24,9 @@ export default function ResponseDetail({ id }: IProps) {
   return (
     <div>
       <h3 className="title has-text-black">{title}</h3>
-      <p className="subtitle has-text-weak">Thank you for your participation</p>
+      <p className="subtitle has-text-grey-light">
+        Thank you for your participation
+      </p>
 
       <div className="box has-text-left">
         {schema.map((data, index) => (

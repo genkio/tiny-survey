@@ -43,7 +43,7 @@ export default function SurveyDetail({ id }: IProps) {
   return (
     <div>
       <h3 className="title has-text-black">{title}</h3>
-      <p className="subtitle has-text-weak">Powered by Tiny Survey</p>
+      <p className="subtitle has-text-grey-light">Powered by Tiny Survey</p>
 
       <form className="has-text-left" onSubmit={submit}>
         <div className="box">
