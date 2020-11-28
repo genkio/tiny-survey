@@ -1,8 +1,7 @@
-import "bulma";
 import React from "react";
 import { QueryCache, ReactQueryCacheProvider } from "react-query";
-import "./app.css";
 import Routes from "./routes";
+import "./styles";
 
 const queryCache = new QueryCache();
 

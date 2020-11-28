@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "./sign-in.scss";
 
 export default function SignInPage() {
   return (
