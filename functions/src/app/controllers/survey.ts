@@ -7,6 +7,8 @@ import {
   ISurveyUpdateRequest,
 } from "common/types/api";
 import { ISurvey } from "common/types/model";
+import TinyError from "common/utilities/tiny-error";
+import { surveyCreateValidator } from "common/validators/survey";
 import { Request, Response, Router } from "express";
 import Database from "../../database";
 import wrapAsync from "../utilities/async-wrapper";
@@ -60,6 +62,10 @@ export default class SurveyController {
 
   async create(req: Request, res: Response) {
     const payload = req.body as ISurveyCreateRequest;
+
+    const errorMessages = surveyCreateValidator.validate(payload);
+    if (errorMessages) throw new TinyError(errorMessages);
+
     const id = await this.database.create("survey", payload);
 
     res.json(

@@ -1,3 +1,4 @@
+import TinyError from "common/utilities/tiny-error";
 import { NextFunction, Request, Response } from "express";
 import HttpException from "../utilities/http-exception";
 
@@ -7,11 +8,11 @@ export default function errorHandler(
   res: Response,
   _next: NextFunction
 ) {
-  const status = err.status ?? 500;
-  console.error(err.message);
-
-  res.status(status).send({
-    status,
-    message: "Something went wrong",
-  });
+  if (err instanceof TinyError) {
+    return res.status(err.status ?? 400).send(err.toMessages());
+  } else {
+    return res
+      .status(err.status ?? 500)
+      .send(new TinyError(["Something went wrong"]).toMessages());
+  }
 }

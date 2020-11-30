@@ -4,7 +4,7 @@ import {
   faQuestion,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IRadioButtonSchema } from "common/types";
+import { IRadioButton } from "common/types";
 import React, { useEffect, useState } from "react";
 import { useFactory } from "../../../hooks";
 
@@ -44,7 +44,14 @@ function QuestionTypeSelect() {
     <div className="field">
       <div className="control">
         <label className="radio">
-          <input checked type="radio" name={`single-choice-${id}`} />{" "}
+          <input
+            checked
+            type="radio"
+            name={`single-choice-${id}`}
+            onChange={() => {
+              /**/
+            }}
+          />{" "}
           Single-choice
         </label>
         <label className="radio" disabled>
@@ -121,23 +128,23 @@ function Option({
 }
 
 interface IProps {
-  onChange: (v: IRadioButtonSchema) => void;
-  schema?: Pick<IRadioButtonSchema, "options" | "title">;
+  onChange: (v: IRadioButton) => void;
+  schema?: Pick<IRadioButton, "options" | "title">;
 }
 
 export default function RadioButtonFactory({ onChange, schema }: IProps) {
   const { add, initialize, items, remove } = useFactory();
   const [optionMap, setOptionMap] = useState<IRadioOptionMap>({});
-  const [title, setTitle] = useState<IRadioButtonSchema["title"]>("");
+  const [title, setTitle] = useState<IRadioButton["title"]>("");
 
-  const initializeOptionMap = (options: IRadioButtonSchema["options"]) =>
+  const initializeOptionMap = (options: IRadioButton["options"]) =>
     Array(options.length)
       .fill(null)
       .reduce((acc, _, index) => ({ ...acc, [index]: options[index] }), {});
 
   useEffect(() => {
     onChange({
-      options: items.reduce<IRadioButtonSchema["options"]>(
+      options: items.reduce<IRadioButton["options"]>(
         (acc, v) => (optionMap[v] ? acc.concat(optionMap[v]) : acc),
         []
       ),

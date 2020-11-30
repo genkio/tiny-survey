@@ -1,9 +1,9 @@
-import { IOption, IRadioButtonSchema } from "common/types";
+import { IOption, IRadioButton } from "common/types";
 import React, { useState } from "react";
 import { createElementId } from "../../../utilities";
 
 interface IProps {
-  schema: IRadioButtonSchema;
+  schema: IRadioButton;
   onChange?: (checked: string) => void;
   result?: IOption;
 }

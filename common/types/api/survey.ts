@@ -1,9 +1,9 @@
 import { ISurvey, ISurveySchema } from "../model";
-
 export interface ISurveyCreateRequest {
   schema: ISurveySchema;
   title: ISurvey["title"];
 }
+
 export interface ISurveyCreateReceive {
   id: string;
 }

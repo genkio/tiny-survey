@@ -1,19 +1,17 @@
 import { faHeading } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  IRadioButtonSchema,
-  ISurvey,
-  ISurveyCreateRequest,
-} from "common/types";
+import { IRadioButton, ISurvey, ISurveyCreateRequest } from "common/types";
+import { surveyCreateValidator } from "common/validators/survey";
 import React, { FormEvent, useState } from "react";
 import { useMutation } from "react-query";
 import { useHistory } from "react-router-dom";
 import { createSurvey } from "../../api";
+import ErrorMessages from "../../components/error-messages";
 import FactoryProvider from "../../components/form/factory-context";
 import RadioButtonFactory from "../../components/form/radio-button/factory";
 import { useFactory } from "../../hooks";
 
-export type ISchemaMap = Record<number, IRadioButtonSchema>;
+export type ISchemaMap = Record<number, IRadioButton>;
 
 export default function SurveyCreate() {
   const history = useHistory();
@@ -21,22 +19,36 @@ export default function SurveyCreate() {
 
   const [title, setTitle] = useState<ISurvey["title"]>("");
   const [schemaMap, setSchemaMap] = useState<ISchemaMap>({});
+  const [errorMessages, setErrorMessages] = useState<string[]>([]);
 
-  const [mutate] = useMutation(
+  const [mutate, { status }] = useMutation(
     (payload: ISurveyCreateRequest) => createSurvey(payload),
     {
       onSuccess: ({ id }) => history.push(`/survey/${id}`),
+      onError: (messages: string[]) => setErrorMessages(messages),
     }
   );
 
-  const updateSchema = (index: number, updatedSchema: IRadioButtonSchema) => {
+  const updateSchema = (index: number, updatedSchema: IRadioButton) => {
     setSchemaMap({ ...schemaMap, [index]: updatedSchema });
   };
 
   const submit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    mutate({ schema: Object.values(schemaMap), title });
+
+    const payload = {
+      schema: Object.values(schemaMap),
+      title,
+    };
+    const messages = surveyCreateValidator.validate(payload);
+    if (messages) {
+      setErrorMessages(messages);
+    } else {
+      mutate(payload);
+    }
   };
+
+  if (status === "loading") return <p>Loading</p>;
 
   const titleInput = (
     <div className="box">
@@ -74,6 +86,8 @@ export default function SurveyCreate() {
             </FactoryProvider>
           </div>
         ))}
+
+        <ErrorMessages messages={errorMessages} />
 
         <div className="buttons is-right">
           <div className="control">
