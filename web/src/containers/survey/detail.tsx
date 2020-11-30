@@ -11,20 +11,24 @@ interface IProps {
 
 export default function SurveyDetail({ id }: IProps) {
   const history = useHistory();
-  const { data, error, status } = useQuery(["survey-detail", id], getSurvey);
+  const { data, error, status: statusGet } = useQuery(
+    ["survey-detail", id],
+    getSurvey
+  );
 
   const [answers, setAnswers] = useState({});
 
-  const [mutate] = useMutation(
+  const [mutate, { status: statusCreate }] = useMutation(
     (payload: IResponseCreateRequest) => createResponse(payload),
     {
       onSuccess: ({ id }) => history.push(`/response/${id}`),
     }
   );
 
-  if (status === "loading") return <p>Loading...</p>;
+  if ([statusGet, statusCreate].some((v) => v.includes("loading"))) {
+    return <p>Loading...</p>;
+  }
   if (error) return <p>Oops</p>;
-
   if (!data) return <p>Not found</p>;
 
   const {

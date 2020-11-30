@@ -1,13 +1,13 @@
-import axios from "axios";
 import {
   ISurveyCreateReceive,
   ISurveyCreateRequest,
   ISurveyDetailReceive,
   ISurveyUpdateRequest,
 } from "common/types";
+import axiosApiInstance from "./base";
 
 export async function createSurvey(payload: ISurveyCreateRequest) {
-  const { data } = await axios.post<ISurveyCreateReceive>(
+  const { data } = await axiosApiInstance.post<ISurveyCreateReceive>(
     `${process.env.API}/survey`,
     payload
   );
@@ -15,19 +15,19 @@ export async function createSurvey(payload: ISurveyCreateRequest) {
 }
 
 export async function deleteSurvey(id: string) {
-  const res = await axios.delete(`${process.env.API}/survey/${id}`);
+  const res = await axiosApiInstance.delete(`${process.env.API}/survey/${id}`);
   return res;
 }
 
 export async function getSurvey(_key: string, id: string) {
-  const { data } = await axios.get<ISurveyDetailReceive>(
+  const { data } = await axiosApiInstance.get<ISurveyDetailReceive>(
     `${process.env.API}/survey/${id}`
   );
   return data;
 }
 
 export async function updateSurvey(id: string, payload: ISurveyUpdateRequest) {
-  const { data } = await axios.put<ISurveyCreateReceive>(
+  const { data } = await axiosApiInstance.put<ISurveyCreateReceive>(
     `${process.env.API}/survey/${id}`,
     payload
   );

@@ -1,7 +1,7 @@
 import { faHeading } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  IRadioButtonSchema,
+  IRadioButton,
   ISurvey,
   ISurveySchema,
   ISurveyUpdateRequest,
@@ -26,7 +26,10 @@ export default function SurveyEdit({ id }: IProps) {
   const [title, setTitle] = useState<ISurvey["title"]>("");
   const [schemaMap, setSchemaMap] = useState<ISchemaMap>({});
 
-  const { data, error, status } = useQuery(["survey-detail", id], getSurvey);
+  const { data, error, status: statusGet } = useQuery(
+    ["survey-detail", id],
+    getSurvey
+  );
 
   const initializeSchemaMap = (schema: ISurveySchema) =>
     Array(schema.length)
@@ -40,7 +43,7 @@ export default function SurveyEdit({ id }: IProps) {
     setSchemaMap(initializeSchemaMap(data.survey.schema));
   }, [data]);
 
-  const [update] = useMutation(
+  const [update, { status: statusUpdate }] = useMutation(
     (payload: ISurveyUpdateRequest) => updateSurvey(id, payload),
     {
       onSuccess: ({ id }) => history.push(`/survey/${id}`),
@@ -51,12 +54,13 @@ export default function SurveyEdit({ id }: IProps) {
     onSuccess: () => history.push("/"),
   });
 
-  if (status === "loading") return <p>Loading...</p>;
+  if ([statusGet, statusUpdate].some((v) => v.includes("loading"))) {
+    return <p>Loading...</p>;
+  }
   if (error) return <p>Oops</p>;
-
   if (!data) return <p>Not found</p>;
 
-  const updateSchema = (index: number, updatedSchema: IRadioButtonSchema) => {
+  const updateSchema = (index: number, updatedSchema: IRadioButton) => {
     setSchemaMap({ ...schemaMap, [index]: updatedSchema });
   };
 
