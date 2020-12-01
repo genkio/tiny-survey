@@ -13,6 +13,10 @@ jobs:
       - uses: actions/setup-node@main
         with:
           version: 12
+      - name: Install Common Dependencies
+        working-directory: ./common
+        run: |
+          npm install
       - name: Install Server Dependencies & Build
         working-directory: ./functions
         run: |
