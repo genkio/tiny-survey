@@ -10,7 +10,8 @@
 
 ## Requirements
 
-- `node v12`
+- `node v15`
+- `npm v7`
 
 ## Initial setup
 
