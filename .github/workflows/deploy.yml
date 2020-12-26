@@ -14,10 +14,11 @@ jobs:
       - uses: actions/setup-node@main
         with:
           version: 15
-      - name: Install Bulma Dependencies
-        working-directory: ./bulma
+      - name: Install UI Dependencies
+        working-directory: ./libs/ui
         run: |
           npm install
+          npm run build
       - name: Install Common Dependencies
         working-directory: ./common
         run: |

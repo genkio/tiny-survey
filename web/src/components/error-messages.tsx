@@ -1,4 +1,4 @@
-import { Message } from "bulma";
+import { Message } from "@libs/ui";
 import React from "react";
 
 export default function ErrorMessages({ messages }: { messages: string[] }) {
