@@ -1,4 +1,4 @@
-import { ISurvey } from "common/types";
+import { ISurvey } from "@libs/common/model";
 import React from "react";
 import { useParams } from "react-router-dom";
 import FactoryProvider from "../../components/form/factory-context";

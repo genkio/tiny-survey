@@ -4,7 +4,7 @@ import {
   faQuestion,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IRadioButton } from "common/types";
+import { IRadioButton } from "@libs/common/model";
 import React, { useEffect, useState } from "react";
 import { useFactory } from "../../../hooks";
 

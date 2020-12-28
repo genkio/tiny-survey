@@ -3,7 +3,7 @@ import {
   ISurveyCreateRequest,
   ISurveyDetailReceive,
   ISurveyUpdateRequest,
-} from "common/types";
+} from "@libs/common/api";
 import axiosApiInstance from "./base";
 
 export async function createSurvey(payload: ISurveyCreateRequest) {

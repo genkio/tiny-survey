@@ -5,6 +5,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "tsc && npm run build-sass",
+    "postbuild": "cp ./package.json dist/package.json",
     "build-sass": "node-sass src/styles/index.scss dist/styles.css"
   },
   "peerDependencies": {

@@ -14,15 +14,16 @@ jobs:
       - uses: actions/setup-node@main
         with:
           version: 15
-      - name: Install UI Dependencies
+      - name: Prepare UI Lib
         working-directory: ./libs/ui
         run: |
           npm install
           npm run build
-      - name: Install Common Dependencies
-        working-directory: ./common
+      - name: Prepare Common Lib
+        working-directory: ./libs/common
         run: |
           npm install
+          npm run build
       - name: Install Server Dependencies & Build
         working-directory: ./functions
         run: |

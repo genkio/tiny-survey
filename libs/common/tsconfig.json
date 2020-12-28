@@ -5,7 +5,6 @@
     "declarationMap": true,
     "esModuleInterop": true,
     "incremental": true,
-    "jsx": "react",
     "module": "commonjs",
     "moduleResolution": "node",
     "noUnusedLocals": true,

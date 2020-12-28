@@ -1,7 +1,7 @@
 import Ajv, { JSONSchemaType } from "ajv";
 import { get, isEmpty } from "lodash";
 
-export default class Validator<T> {
+export class Validator<T> {
   private ajv: Ajv;
 
   constructor(private schema: JSONSchemaType<T>) {

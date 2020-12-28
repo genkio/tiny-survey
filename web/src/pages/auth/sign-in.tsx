@@ -1,7 +1,7 @@
 import { Container } from "@libs/ui";
 import React from "react";
 import { Link } from "react-router-dom";
-import "./sign-in.scss";
+import "./sign-in.css";
 
 export default function SignInPage() {
   return (

@@ -1,4 +1,4 @@
-import { IOption, IRadioButton } from "common/types";
+import { IOption, IRadioButton } from "@libs/common/model";
 import React, { useState } from "react";
 import { createElementId } from "../../../utilities";
 

@@ -1,4 +1,4 @@
-import { IResponse } from "common/types";
+import { IResponse } from "@libs/common/model";
 import React from "react";
 import { useQuery } from "react-query";
 import { getResponse } from "../../api";
