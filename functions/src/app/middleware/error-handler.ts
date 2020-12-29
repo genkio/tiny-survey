@@ -1,4 +1,4 @@
-import TinyError from "common/utilities/tiny-error";
+import { CustomError } from "@libs/common/util";
 import { NextFunction, Request, Response } from "express";
 import HttpException from "../utilities/http-exception";
 
@@ -8,11 +8,11 @@ export default function errorHandler(
   res: Response,
   _next: NextFunction
 ) {
-  if (err instanceof TinyError) {
+  if (err instanceof CustomError) {
     return res.status(err.status ?? 400).send(err.toMessages());
   } else {
     return res
       .status(err.status ?? 500)
-      .send(new TinyError(["Something went wrong"]).toMessages());
+      .send(new CustomError(["Something went wrong"]).toMessages());
   }
 }
