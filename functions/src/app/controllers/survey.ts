@@ -5,10 +5,10 @@ import {
   ISurveyDetailReceive,
   ISurveyUpdateReceive,
   ISurveyUpdateRequest,
-} from "common/types/api";
-import { ISurvey } from "common/types/model";
-import TinyError from "common/utilities/tiny-error";
-import { surveyCreateValidator } from "common/validators/survey";
+  surveyCreateValidator,
+} from "@libs/common/api";
+import { ISurvey } from "@libs/common/model";
+import { CustomError } from "@libs/common/util";
 import { Request, Response, Router } from "express";
 import Database from "../../database";
 import wrapAsync from "../utilities/async-wrapper";
@@ -64,7 +64,7 @@ export default class SurveyController {
     const payload = req.body as ISurveyCreateRequest;
 
     const errorMessages = surveyCreateValidator.validate(payload);
-    if (errorMessages) throw new TinyError(errorMessages);
+    if (errorMessages) throw new CustomError(errorMessages);
 
     const id = await this.database.create("survey", payload);
 

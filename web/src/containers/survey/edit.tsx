@@ -1,11 +1,7 @@
 import { faHeading } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  IRadioButton,
-  ISurvey,
-  ISurveySchema,
-  ISurveyUpdateRequest,
-} from "common/types";
+import { ISurveyUpdateRequest } from "@libs/common/api";
+import { IRadioButton, ISurvey, ISurveySchema } from "@libs/common/model";
 import React, { FormEvent, useEffect, useState } from "react";
 import { useMutation, useQuery } from "react-query";
 import { useHistory } from "react-router-dom";

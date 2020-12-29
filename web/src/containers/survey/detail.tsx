@@ -1,4 +1,5 @@
-import { IResponseCreateRequest, ISurvey } from "common/types";
+import { IResponseCreateRequest } from "@libs/common/api";
+import { ISurvey } from "@libs/common/model";
 import React, { FormEvent, useState } from "react";
 import { useMutation, useQuery } from "react-query";
 import { useHistory } from "react-router-dom";

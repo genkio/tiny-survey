@@ -1,10 +1,11 @@
+import { Container } from "@libs/ui";
 import React from "react";
 import { Link } from "react-router-dom";
-import "./sign-in.scss";
+import "./sign-in.css";
 
 export default function SignInPage() {
   return (
-    <section className="container">
+    <Container>
       <div className="columns is-multiline">
         <div className="column is-8 is-offset-2 wrapper">
           <div className="columns">
@@ -46,6 +47,6 @@ export default function SignInPage() {
           </div>
         </div>
       </div>
-    </section>
+    </Container>
   );
 }

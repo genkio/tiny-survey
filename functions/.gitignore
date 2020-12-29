@@ -5,6 +5,7 @@
 # Except the ESLint & Prettier config file
 !.eslintrc.js
 !.prettierrc.js
+!webpack.config.js
 
 # TypeScript v1 declaration files
 typings/

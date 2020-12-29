@@ -36,7 +36,7 @@ module.exports = {
     "constructor-super": "error",
     eqeqeq: ["warn", "always"],
     "import/no-deprecated": "warn",
-    "import/no-extraneous-dependencies": "error",
+    "import/no-extraneous-dependencies": "warn",
     "import/no-unassigned-import": "warn",
     "import/no-unresolved": [
       2,

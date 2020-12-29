@@ -3,8 +3,8 @@ import {
   IResponseCreateReceive,
   IResponseCreateRequest,
   IResponseDetailReceive,
-} from "common/types/api";
-import { IResponse, ISurvey } from "common/types/model";
+} from "@libs/common/api";
+import { IResponse, ISurvey } from "@libs/common/model";
 import { Request, Response, Router } from "express";
 import Database from "../../database";
 import wrapAsync from "../utilities/async-wrapper";

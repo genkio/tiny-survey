@@ -2,7 +2,7 @@ import {
   IResponseCreateReceive,
   IResponseCreateRequest,
   IResponseDetailReceive,
-} from "common/types";
+} from "@libs/common/api";
 import axiosApiInstance from "./base";
 
 export async function createResponse(payload: IResponseCreateRequest) {

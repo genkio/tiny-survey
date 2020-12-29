@@ -1,15 +1,16 @@
+import { Message } from "@libs/ui";
 import React from "react";
 
 export default function ErrorMessages({ messages }: { messages: string[] }) {
   if (!messages || !messages.length) return null;
 
   return (
-    <div className="message is-danger">
-      <div className="message-body">
+    <Message isDanger>
+      <Message.Body>
         {messages.map((message, index) => (
           <p key={`ErrorMessage-${index}`}>{message}</p>
         ))}
-      </div>
-    </div>
+      </Message.Body>
+    </Message>
   );
 }

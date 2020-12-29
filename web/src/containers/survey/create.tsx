@@ -1,7 +1,7 @@
 import { faHeading } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IRadioButton, ISurvey, ISurveyCreateRequest } from "common/types";
-import { surveyCreateValidator } from "common/validators/survey";
+import { IRadioButton, ISurvey } from "@libs/common/model";
+import { ISurveyCreateRequest, surveyCreateValidator } from "@libs/common/api";
 import React, { FormEvent, useState } from "react";
 import { useMutation } from "react-query";
 import { useHistory } from "react-router-dom";
